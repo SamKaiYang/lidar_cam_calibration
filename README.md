@@ -4,6 +4,10 @@
 1. 一般usb cam(單眼)
 2. Velodyne VLP-16
 
+將要使用的 submodule update
+```
+git submodule update --init --recursive
+```
 流程:
 
 1.  usb cam 校正後參數(轉換矩陣等)
