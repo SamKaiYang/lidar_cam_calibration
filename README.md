@@ -4,10 +4,39 @@
 1. 一般usb cam(單眼)
 2. Velodyne VLP-16
 
-將要使用的 submodule update
+
+# 安裝相關功能
+```
+sudo apt-get install -y python-catkin-tools python-catkin-pkg python-rosdep python-wstool ros-melodic-cv-bridge ros-melodic-image-transport
+sudo apt-get install -y ros-melodic-nodelet-core ros-melodic-ddynamic-reconfigure
+sudo apt-get install -y ros-melodic-velodyne-pointcloud
+
+source /opt/ros/melodic/setup.bash
+
+# Prepare rosdep to install dependencies.
+sudo rosdep init
+rosdep update --include-eol-distros  # Support EOL distros.
+
+cd lidar_camera_calibration
+git checkout melodic
+```
+
+
+# 將要使用的 submodule update
 ```
 git submodule update --init --recursive
 ```
+
+
+# build
+```
+cd ../..
+rosdep install --from-paths src --ignore-src -r -y
+catkin_make -DCATKIN_WHITELIST_PACKAGES="aruco;aruco_ros;aruco_msgs"
+catkin_make -DCATKIN_WHITELIST_PACKAGES="aruco_mapping;lidar_camera_calibration"
+catkin_make -DCATKIN_WHITELIST_PACKAGES=""
+```
+
 流程:
 
 1.  usb cam 校正後參數(轉換矩陣等)
