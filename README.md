@@ -1,4 +1,12 @@
 # lidar_cam_calibration
+reference:
+
+1. [https://github.com/ros-drivers/velodyne](https://github.com/ros-drivers/velodyne)
+2. [https://silverwind1982.pixnet.net/blog/post/153218861](https://silverwind1982.pixnet.net/blog/post/153218861)
+3. [https://github.com/UT18-Senior-Design/Object-Detection-and-Calibrations](https://github.com/UT18-Senior-Design/Object-Detection-and-Calibrations)
+4. [https://github.com/ankitdhall/lidar_camera_calibration](https://github.com/ankitdhall/lidar_camera_calibration)
+5. [https://arxiv.org/pdf/2011.08516.pdf](https://arxiv.org/pdf/2011.08516.pdf)
+
 器材:
 
 1. 一般usb cam(單眼)
@@ -65,7 +73,7 @@ LiDAR 的框架定義為 X 軸指向前方，Y 軸指向左側，Z 軸指向上�
 - y forward
 - z up
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0044825e-b537-445d-a658-6df88b13e8fd/Untitled.png)
+![Untitled](picture/Untitled.png)
 
 單眼相機校正流程
 
@@ -81,11 +89,10 @@ Dictionary要選擇original
 
 範例使用的是ID 26跟582
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/062fde84-1652-40ed-9241-d444d2fcf9bf/aruco-582.svg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/062fde84-1652-40ed-9241-d444d2fcf9bf/aruco-582.svg)
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/062fde84-1652-40ed-9241-d444d2fcf9bf/aruco-582.svg](picture/aruco-582.svg)
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/892cc17d-e8e3-4680-8f8c-b7fdafcd4a3d/Screenshot_2021-08-11_213319.png](picture/aruco-26.svg)
 
 校正結果如下：
-
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/892cc17d-e8e3-4680-8f8c-b7fdafcd4a3d/Screenshot_2021-08-11_213319.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/892cc17d-e8e3-4680-8f8c-b7fdafcd4a3d/Screenshot_2021-08-11_213319.png)
 
 使用arcuo mapping 確認是否能mapping到arcuo
 
@@ -136,6 +143,8 @@ projection
 0.000000 0.000000 1.000000 0.000000
 ```
 
+
+# 使用terminal運行指令:
 roslaunch velodyne_pointcloud VLP16_points.launch
 
 roslaunch usb_cam usb_cam-test.launch
