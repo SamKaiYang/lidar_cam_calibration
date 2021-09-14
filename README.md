@@ -43,6 +43,30 @@ catkin_make -DCATKIN_WHITELIST_PACKAGES=""
 2. arcuo mapping
 3. arcuo mapping with lidar
 
+LiDAR 的框架定義為 X 軸指向前方，Y 軸指向左側，Z 軸指向上方。
+
+相機的框架被定義為Z軸指向前方，X軸指向右側，Y軸指向下方。c
+
+- x right
+- y down
+- z forward
+
+## [Axis Orientation](https://www.ros.org/reps/rep-0103.html#id21)
+
+經過ROS 輸出vlp16座標系In relation to a body the standard is: B
+
+- x forward
+- y left
+- z up
+
+實際 vlp16手冊 A
+
+- x right
+- y forward
+- z up
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0044825e-b537-445d-a658-6df88b13e8fd/Untitled.png)
+
 單眼相機校正流程
 
 [http://wiki.ros.org/camera_calibration/Tutorials/MonocularCalibration](http://wiki.ros.org/camera_calibration/Tutorials/MonocularCalibration)

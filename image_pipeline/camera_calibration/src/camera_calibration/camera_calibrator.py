@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 #
 # Software License Agreement (BSD License)
 #
@@ -32,6 +32,7 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+from __future__ import print_function
 import cv2
 import message_filters
 import numpy
@@ -276,10 +277,6 @@ class OpenCVCalibrationNode(CalibrationNode):
                     if self.do_upload():
                         rospy.signal_shutdown('Quit')
     def on_model_change(self, model_select_val):
-        if self.c == None:
-            print("Cannot change camera model until the first image has been received")
-            return
-
         self.c.set_cammodel( CAMERA_MODEL.PINHOLE if model_select_val < 0.5 else CAMERA_MODEL.FISHEYE)
 
     def on_scale(self, scalevalue):

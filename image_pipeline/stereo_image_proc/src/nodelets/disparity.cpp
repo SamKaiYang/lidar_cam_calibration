@@ -189,14 +189,11 @@ cv::Mat subsampleTheImage(
   cv::Mat downsampled_image(
       downsampled_height, downsampled_width, input_image.type());
 
-  for (uint32_t destination_row = 0u;
-       destination_row < downsampled_image.size().height; destination_row++) {
-    for (uint32_t destination_col = 0u;
-         destination_col < downsampled_image.size().width; destination_col++) {
+  for (uint32_t destination_row = 0u; destination_row < downsampled_image.size().height; destination_row++) {
+    for (uint32_t destination_col = 0u; destination_col < downsampled_image.size().width; destination_col++) {
       downsampled_image.at<uint8_t>(destination_row, destination_col) =
-          blurred_image.at<uint8_t>(
-              destination_row * downsample_factor_per_dimension,
-              destination_col * downsample_factor_per_dimension);
+          blurred_image.at<uint8_t>(destination_row * downsample_factor_per_dimension,
+                                    destination_col * downsample_factor_per_dimension);
     }
   }
   return downsampled_image;
@@ -205,18 +202,14 @@ cv::Mat subsampleTheImage(
 cv::Mat upsampleTheDisparityImageWithoutInterpolation(
     const cv::Mat& disparity, const cv::Size& destination_size,
     const uint32_t upsample_factor_per_dimension) {
-  cv::Mat upsampled_disparity(destination_size, disparity.type(), -1.);
+  cv::Mat upsampled_disparity(
+      destination_size, disparity.type(), -1.);
 
-  for (uint32_t destination_row = 0u;
-       destination_row < upsampled_disparity.size().height; destination_row++) {
-    for (uint32_t destination_col = 0u;
-         destination_col < upsampled_disparity.size().width;
-         destination_col++) {
-      upsampled_disparity.at<float>(destination_row, destination_col) =
-          upsample_factor_per_dimension *
-          disparity.at<float>(
-              destination_row / upsample_factor_per_dimension,
-              destination_col / upsample_factor_per_dimension);
+  for (uint32_t destination_row = 0u; destination_row < upsampled_disparity.size().height; destination_row++) {
+    for (uint32_t destination_col = 0u; destination_col < upsampled_disparity.size().width; destination_col++) {
+      upsampled_disparity.at<float>(destination_row, destination_col) = upsample_factor_per_dimension *
+          disparity.at<float>(destination_row / upsample_factor_per_dimension,
+                              destination_col / upsample_factor_per_dimension);
     }
   }
   return upsampled_disparity;
@@ -257,7 +250,8 @@ void DisparityNodelet::imageCb(const ImageConstPtr& l_image_msg,
   if (downsampling_factor_ != 1) {
     l_sub_image = subsampleTheImage(l_image, downsampling_factor_);
     r_sub_image = subsampleTheImage(r_image, downsampling_factor_);
-  } else {
+  }
+  else {
     l_sub_image = l_image;
     r_sub_image = r_image;
   }
@@ -267,16 +261,12 @@ void DisparityNodelet::imageCb(const ImageConstPtr& l_image_msg,
 
   // Upsampling
   if (downsampling_factor_ != 1) {
-    const cv::Mat disp_subsampled_image =
-        cv_bridge::toCvShare(
-            disp_msg->image, disp_msg, sensor_msgs::image_encodings::TYPE_32FC1)
-            ->image;
+    const cv::Mat disp_subsampled_image = cv_bridge::toCvShare(disp_msg->image, disp_msg, sensor_msgs::image_encodings::TYPE_32FC1)->image;
     const cv::Mat disp_upsampled_image =
         upsampleTheDisparityImageWithoutInterpolation(
             disp_subsampled_image, l_image.size(), downsampling_factor_);
-    const cv_bridge::CvImage disp_image_container = cv_bridge::CvImage(
-        disp_msg->header, sensor_msgs::image_encodings::TYPE_32FC1,
-        disp_upsampled_image);
+    const cv_bridge::CvImage disp_image_container =
+            cv_bridge::CvImage(disp_msg->header, sensor_msgs::image_encodings::TYPE_32FC1, disp_upsampled_image);
     disp_image_container.toImageMsg(disp_msg->image);
   }
 
